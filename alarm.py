@@ -17,22 +17,24 @@ GPIO.setup(GPIO_BUZZER, GPIO.OUT) # Set buzzer pin to output
 now = datetime.now()
 hour = input("Enter hour: ") # Asks user for Hour
 min = input("Enter Minute: ") # asks user for minute
+time_day = input("AM or PM: ")
 alarm = now.replace(hour=int(hour), minute=int(min), second=0, microsecond=0) # Puts input into time value to compare later
-alarm_print = alarm.strftime("%H:%M:%S") # Pretty Print
+alarm_print = alarm.strftime("%H:%M:%S "+time_day) # Pretty Print
 
 while True: # Loop forever
 	now = datetime.now() # Get Current time
-	current_time = now.strftime("%H:%M:%S\n"+alarm_print ) # Print that time and alarm time \n = New Line
+	current_time = now.strftime("%H:%M:%S %p") # Print that time and alarm time \n = New Line
 	if old_time != current_time: # If time has changed by one second. If this bit was removed it would print the time every few nano-seconds
 		lcd.clear() # clear screen
-		lcd.message(current_time) # Print time to LCD screen
+		lcd.message(current_time+"\n"+alarm_print) # Print time to LCD screen
 		if now >= alarm: # if enough time has passed and the time > than the alarm
-			lcd.clear() # clear screen
-			lcd.message("WAKE UP") # Display message wake up
-			GPIO.output(GPIO_BUZZER, True) # Turn on the buzzer
-			time.sleep(1) # Sleep for __ seconds and leave the buzzer on
-			GPIO.output(GPIO_BUZZER,False) # Turn Buzzer back off
-			lcd.clear() # Clear screen again
-			exit(0)	 # Exit
-	old_time = current_time
+			if time_day in current_time:			
+				lcd.clear() # clear screen
+				lcd.message("WAKE UP") # Display message wake up
+				GPIO.output(GPIO_BUZZER, True) # Turn on the buzzer
+				time.sleep(1) # Sleep for __ seconds and leave the buzzer on
+				GPIO.output(GPIO_BUZZER,False) # Turn Buzzer back off
+				lcd.clear() # Clear screen again
+				exit(0)	 # Exit
+		old_time = current_time
  
