@@ -5,3 +5,6 @@ A Raspberry Pi alarm clock made using python and GPIO pins
 
 
 ## LCD Screen
+
+
+## Requirements 
