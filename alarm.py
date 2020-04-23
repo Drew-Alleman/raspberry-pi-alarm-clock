@@ -27,7 +27,7 @@ while True: # Loop forever
 	if old_time != current_time: # If time has changed by one second. If this bit was removed it would print the time every few nano-seconds
 		lcd.clear() # clear screen
 		lcd.message(current_time+"\n"+alarm_print) # Print time to LCD screen
-		if now >= alarm 
+		if now >= alarm:
 			if time_day in current_time: # if enough time has passed and the time > than the alarm	and its less than 30 minutes ahead		
 				lcd.clear() # clear screen
 				lcd.message("WAKE UP") # Display message wake up
