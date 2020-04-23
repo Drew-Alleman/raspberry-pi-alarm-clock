@@ -22,6 +22,7 @@ alarm = now.replace(hour=int(hour), minute=int(min), second=0, microsecond=0) # 
 alarm_print = alarm.strftime("%H:%M:%S "+time_day) # Pretty Print
 if int(min)+30 >= 60:
 	int(hour)+= 1
+	min = 00
 alarm_max = now.replace(hour=hour, minute=min, second=0, microsecond=0)
 
 while True: # Loop forever
