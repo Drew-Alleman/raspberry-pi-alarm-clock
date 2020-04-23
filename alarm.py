@@ -20,7 +20,9 @@ min = input("Enter Minute: ") # asks user for minute
 time_day = input("AM or PM: ")
 alarm = now.replace(hour=int(hour), minute=int(min), second=0, microsecond=0) # Puts input into time value to compare later
 alarm_print = alarm.strftime("%H:%M:%S "+time_day) # Pretty Print
-alarm_max = now.replace(hour=int(hour), minute=int(min)+30, second=0, microsecond=0)
+if int(min)+30 >= 60:
+	int(hour)+= 1
+alarm_max = now.replace(hour=hour, minute=min, second=0, microsecond=0)
 
 while True: # Loop forever
 	now = datetime.now() # Get Current time
