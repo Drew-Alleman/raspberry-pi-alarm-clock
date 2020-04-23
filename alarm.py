@@ -20,10 +20,6 @@ min = input("Enter Minute: ") # asks user for minute
 time_day = input("AM or PM: ")
 alarm = now.replace(hour=int(hour), minute=int(min), second=0, microsecond=0) # Puts input into time value to compare later
 alarm_print = alarm.strftime("%H:%M:%S "+time_day) # Pretty Print
-if int(min)+30 >= 60:
-	hour + 1
-	min = 00
-alarm_max = now.replace(hour=hour, minute=min, second=0, microsecond=0)
 
 while True: # Loop forever
 	now = datetime.now() # Get Current time
@@ -31,7 +27,7 @@ while True: # Loop forever
 	if old_time != current_time: # If time has changed by one second. If this bit was removed it would print the time every few nano-seconds
 		lcd.clear() # clear screen
 		lcd.message(current_time+"\n"+alarm_print) # Print time to LCD screen
-		if now >= alarm & time_day in current_time and now <= alarm_max: # if enough time has passed and the time > than the alarm	and its less than 30 minutes ahead		
+		if now >= alarm & time_day in current_time: # if enough time has passed and the time > than the alarm	and its less than 30 minutes ahead		
 			lcd.clear() # clear screen
 			lcd.message("WAKE UP") # Display message wake up
 			GPIO.output(GPIO_BUZZER, True) # Turn on the buzzer
