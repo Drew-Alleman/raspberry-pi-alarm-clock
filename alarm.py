@@ -28,11 +28,11 @@ while True: # Loop forever
 		lcd.clear() # clear screen
 		lcd.message(current_time+"\n"+alarm_print) # Print time to LCD screen
 		if now >= alarm:
-			if time_day in current_time: # if enough time has passed and the time > than the alarm	and its less than 30 minutes ahead		
+			if time_day in current_time: # if enough time has passed and the time > than the alarm		
 				lcd.clear() # clear screen
 				lcd.message("WAKE UP") # Display message wake up
 				GPIO.output(GPIO_BUZZER, True) # Turn on the buzzer
-				time.sleep(1) # Sleep for __ seconds and leave the buzzer on
+				time.sleep(120) # Sleep for __ seconds and leave the buzzer on
 				GPIO.output(GPIO_BUZZER,False) # Turn Buzzer back off
 				lcd.clear() # Clear screen again
 				exit(0)	 # Exit
