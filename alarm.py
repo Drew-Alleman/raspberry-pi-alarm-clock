@@ -25,7 +25,6 @@ min+=30
 if min >= 60:
 	min = 0
 	hour+= 1
-	print(min)
 alarm_max = now.replace(hour=hour,minute=min,second=0,microsecond=0)
 while True: # Loop forever
 	now = datetime.now() # Get Current time
@@ -33,15 +32,13 @@ while True: # Loop forever
 	if old_time != current_time: # If time has changed by one second. If this bit was removed it would print the time every few nano-seconds
 		lcd.clear() # clear screen
 		lcd.message(current_time+"\n"+alarm_print) # Print time to LCD screen
-		if now >= alarm:
-			print(alarm_max)
-			if now <= alarm_max:
-				lcd.clear() # clear screen
-				lcd.message("WAKE UP") # Display message wake up
-				GPIO.output(GPIO_BUZZER, True) # Turn on the buzzer
-				time.sleep(120) # Sleep for __ seconds and leave the buzzer on
-				GPIO.output(GPIO_BUZZER,False) # Turn Buzzer back off
-				lcd.clear() # Clear screen again
-				exit(0)	 # Exit
-		old_time = current_time
+		if now >= alarm and  now <= alarm_max:				
+			lcd.clear() # clear screen
+			lcd.message("WAKE UP") # Display message wake up
+			GPIO.output(GPIO_BUZZER, True) # Turn on the buzzer
+			time.sleep(120) # Sleep for __ seconds and leave the buzzer on
+			GPIO.output(GPIO_BUZZER,False) # Turn Buzzer back off
+			lcd.clear() # Clear screen again
+			exit(0)	 # Exit
+	old_time = current_time
  
