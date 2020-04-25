@@ -15,12 +15,18 @@ GPIO_BUZZER = 18 # Buzzer Pin
 GPIO.setup(GPIO_BUZZER, GPIO.OUT) # Set buzzer pin to output
 
 now = datetime.now()
-hour = input("Enter hour: ") # Asks user for Hour
-min = input("Enter Minute: ") # asks user for minute
+hour = int(input("Enter hour: ")) # Asks user for Hour
+min = int(input("Enter Minute: ")) # asks user for minute
 time_day = input("AM or PM: ")
-alarm = now.replace(hour=int(hour), minute=int(min), second=0, microsecond=0) # Puts input into time value to compare later
+alarm = now.replace(hour=hour, minute=min, second=0, microsecond=0) # Puts input into time value to compare later
 alarm_print = alarm.strftime("%H:%M:%S "+time_day) # Pretty Print
 
+min+=30
+if min >= 60:
+	min = 0
+	hour+= 1
+	print(min)
+alarm_max = now.replace(hour=hour,minute=min,second=0,microsecond=0)
 while True: # Loop forever
 	now = datetime.now() # Get Current time
 	current_time = now.strftime("%H:%M:%S %p") # Print that time and alarm time \n = New Line
@@ -28,7 +34,8 @@ while True: # Loop forever
 		lcd.clear() # clear screen
 		lcd.message(current_time+"\n"+alarm_print) # Print time to LCD screen
 		if now >= alarm:
-			if time_day in current_time: # if enough time has passed and the time > than the alarm		
+			print(alarm_max)
+			if now <= alarm_max:
 				lcd.clear() # clear screen
 				lcd.message("WAKE UP") # Display message wake up
 				GPIO.output(GPIO_BUZZER, True) # Turn on the buzzer
